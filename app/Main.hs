@@ -69,7 +69,7 @@ app = component () update_ $ \() ->
            vid <- Media <$> getElementById "video"
            vid & srcObject stream
            vid & play
-       ErrorCamera ErrorValue ->
+       ErrorCamera errorValue ->
          io_ $ do
            consoleLog "Error opening camera"
            consoleLog' errorValue
