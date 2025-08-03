@@ -14,9 +14,9 @@ import qualified Data.Map.Strict as M
 ----------------------------------------------------------------------------
 -- | Component model state
 data Action
-  = OpenWebCam
-  | OpenedWebCam Stream
-  | ErrorWebCam JSVal
+  = OpenCamera
+  | OpenedStream Stream
+  | ErrorCamera JSVal
 ----------------------------------------------------------------------------
 -- | Entry point for a miso application
 main :: IO ()
@@ -43,7 +43,7 @@ app = component () update_ $ \() ->
   ]
   [ h2_ [] [ "🍜 miso-camera 📷" ]
   , video_
-    [ id_ "vid"
+    [ id_ "video"
     , muted_ True
     , Style.style_
       [ Style.width (Style.px 500)
@@ -55,22 +55,22 @@ app = component () update_ $ \() ->
   , button_
     [ id_ "button"
     , autoplay_ True
-    , onClick OpenWebCam 
+    , onClick OpenCamera 
     ]
-    [ "Open WebCam"
+    [ "Open Camera"
     ]
   ] where
      update_ :: Action -> Effect Model Action
      update_ = \case
-       OpenWebCam ->
+       OpenCamera ->
          getUserMedia userMedia OpenedWebCam ErrorWebCam
-       OpenedWebCam stream ->
+       OpenedStream stream ->
          io_ $ do
-           vid <- Media <$> getElementById "vid"
+           vid <- Media <$> getElementById "video"
            vid & srcObject stream
            vid & play
-       ErrorWebCam errorValue ->
+       ErrorCamera ErrorValue ->
          io_ $ do
-           consoleLog "Error opening webcam"
+           consoleLog "Error opening camera"
            consoleLog' errorValue
 ----------------------------------------------------------------------------
