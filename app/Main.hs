@@ -7,11 +7,9 @@ module Main where
 ----------------------------------------------------------------------------
 import           Miso hiding ((<#))
 import           Miso.Media
-import           Miso.String (MisoString)
 import qualified Miso.Style as Style
 ----------------------------------------------------------------------------
 import           Data.Function
-import           Language.Javascript.JSaddle
 import qualified Data.Map.Strict as M
 ----------------------------------------------------------------------------
 -- | Component model state
@@ -68,9 +66,9 @@ app = component () update_ $ \() ->
          getUserMedia userMedia OpenedWebCam ErrorWebCam
        OpenedWebCam stream ->
          io_ $ do
-           vid <- getElementById "vid"
-           vid <# ("srcObject" :: MisoString) $ stream
-           Media vid & play
+           vid <- Media <$> getElementById "vid"
+           vid & srcObject stream
+           vid & play
        ErrorWebCam errorValue ->
          io_ $ do
            consoleLog "Error opening webcam"
