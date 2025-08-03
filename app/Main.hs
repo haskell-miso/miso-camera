@@ -63,7 +63,7 @@ app = component () update_ $ \() ->
      update_ :: Action -> Effect Model Action
      update_ = \case
        OpenCamera ->
-         getUserMedia userMedia OpenedWebCam ErrorWebCam
+         getUserMedia userMedia OpenedStream ErrorCamera
        OpenedStream stream ->
          io_ $ do
            vid <- Media <$> getElementById "video"
