@@ -60,7 +60,7 @@ app = component () update_ $ \() ->
     [ "Open Camera"
     ]
   ] where
-     update_ :: Action -> Effect Model Action
+     update_ :: Action -> Transition Model Action
      update_ = \case
        OpenCamera ->
          getUserMedia userMedia OpenedStream ErrorCamera
