@@ -5,12 +5,16 @@
 ----------------------------------------------------------------------------
 module Main where
 ----------------------------------------------------------------------------
-import           Miso hiding ((<#))
-import           Miso.Media
-import qualified Miso.Style as Style
+import           Miso
+import           Miso.Html
+import           Miso.Html.Property
+import           Miso.Media hiding (Stream)
+import           Miso.Navigator
+import qualified Miso.CSS as CSS
 ----------------------------------------------------------------------------
 import           Data.Function
 import qualified Data.Map.Strict as M
+import           Language.Javascript.JSaddle
 ----------------------------------------------------------------------------
 -- | Component model state
 data Action
@@ -35,31 +39,40 @@ type Model = ()
 app :: App Model Action
 app = component () update_ $ \() ->
   div_
-  [ Style.style_
-    [ Style.width (Style.px 500)
-    , Style.height (Style.px 400)
-    , Style.border "2px solid black"
-    ]
-  ]
-  [ h2_ [] [ "🍜 miso-camera 📷" ]
-  , video_
-    [ id_ "video"
-    , muted_ True
-    , Style.style_
-      [ Style.width (Style.px 500)
-      , Style.height (Style.px 400)
-      , "object-fit" =: "cover"
-      ]
-    ]
-    []
+  []
+  [ h2_ [ CSS.style_ [ CSS.fontFamily "monospace" ] ] [ "🍜 📷 miso-camera" ]
   , button_
     [ id_ "button"
     , autoplay_ True
     , onClick OpenCamera 
+    , CSS.style_
+      [ CSS.fontSize (CSS.px 20)
+      , CSS.fontFamily "monospace"
+      , CSS.margin "10px"
+      ]
     ]
     [ "Open Camera"
     ]
-  ] where
+  , div_
+    [ CSS.style_
+      [ CSS.width (CSS.px 500)
+      , CSS.height (CSS.px 400)
+      , CSS.border "2px solid black"
+      ]
+    ]
+    [ video_
+      [ id_ "video"
+      , muted_ True
+      , CSS.style_
+        [ CSS.width (CSS.px 500)
+        , CSS.height (CSS.px 400)
+        , "object-fit" =: "cover"
+        ]
+      ]
+      []
+    ]
+  ]
+   where
      update_ :: Action -> Transition Model Action
      update_ = \case
        OpenCamera ->

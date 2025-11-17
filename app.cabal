@@ -1,8 +1,8 @@
 cabal-version:      3.0
 name:               app
 version:            0.1.0.0
-synopsis:           A miso-sampler application
-description:        Getting started miso application
+synopsis:           A sample miso application that uses the camera API
+description:        A getting started with miso camera API application
 license:            BSD-3-Clause
 license-file:       LICENSE
 author:             dmjio
