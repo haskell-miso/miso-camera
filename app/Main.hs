@@ -25,7 +25,7 @@ data Action
 -- | Entry point for a miso application
 main :: IO ()
 main = run $ startApp app
-  { events = M.insert "click" False mediaEvents
+  { events = M.insert "click" BUBBLE mediaEvents
   }
 ----------------------------------------------------------------------------
 -- | WASM export, required when compiling w/ the WASM backend.
