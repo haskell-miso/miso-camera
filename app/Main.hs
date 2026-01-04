@@ -14,7 +14,6 @@ import qualified Miso.CSS as CSS
 ----------------------------------------------------------------------------
 import           Data.Function
 import qualified Data.Map.Strict as M
-import           Language.Javascript.JSaddle
 ----------------------------------------------------------------------------
 -- | Component model state
 data Action
