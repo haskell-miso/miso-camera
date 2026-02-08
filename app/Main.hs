@@ -23,7 +23,7 @@ data Action
 ----------------------------------------------------------------------------
 -- | Entry point for a miso application
 main :: IO ()
-main = run $ startApp app
+main =  startApp app
   { events = M.insert "click" BUBBLE mediaEvents
   }
 ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ app = component () update_ $ \() ->
     ]
   ]
    where
-     update_ :: Action -> Transition Model Action
+     update_ :: Action -> Effect parent Model Action
      update_ = \case
        OpenCamera ->
          getUserMedia userMedia OpenedStream ErrorCamera
